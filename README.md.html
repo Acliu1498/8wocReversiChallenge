@@ -1,0 +1,110 @@
+<h1 id="reversi-challenge">Reversi Challenge</h1>
+<h2 id="what-is-reversi">What is Reversi?</h2>
+<p>Reversi is a simple board game played on an 8x8 board with black and white disks. You can find detailed rules to the game on Wikipedia:</p>
+<p><a href="https://en.wikipedia.org/wiki/Reversi" class="uri">https://en.wikipedia.org/wiki/Reversi</a></p>
+<h2 id="your-challenge">Your challenge</h2>
+<p>Write a command-line program in the language of your choice that:</p>
+<ul>
+<li>accepts a <a href="https://en.wikipedia.org/wiki/JSON">JSON-formatted</a> board state move via <a href="https://en.wikipedia.org/wiki/Standard_streams">stdin</a></li>
+<li>prints a <a href="https://en.wikipedia.org/wiki/JSON">JSON-formatted</a> board state to <a href="https://en.wikipedia.org/wiki/Standard_streams">stdout</a> that is the result of applying the move to the input board state.</li>
+</ul>
+<p>An example Python script, <code>example_solution_template.py</code> that reads from stdin and writes to stdout is provided. It does not solve the challenge, however -- that's up to you!</p>
+<p>Your program will be called by sending your program a JSON board state through its <code>stdin</code>, and its performance will be evaluated based on the JSON board state your program prints to its <code>stdout</code>. The formatting of your output JSON does not matter -- only the structure and values need to match the expected output.</p>
+<p>The next sections describe the input that will be given to your program, and the output that is expected from it:</p>
+<h3 id="input">Input</h3>
+<p>Your input will be a JSON object containing a board state and a player move; for example:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;board&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">2</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">2</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span>
+             <span class="ot">]</span><span class="fu">,</span>
+    <span class="dt">&quot;move&quot;</span><span class="fu">:</span>  <span class="fu">{</span>
+                <span class="dt">&quot;player&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span>
+                <span class="dt">&quot;column&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span>
+                <span class="dt">&quot;row&quot;</span><span class="fu">:</span>    <span class="dv">3</span>
+             <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
+<p><code>board</code> is an array of integers of length 64, conceptually arranged in rows and columns. Counting from zero:</p>
+<ul>
+<li>Item 0 is the upper-left cell of the board.</li>
+<li>Item 7 is the upper-right cell of the board.</li>
+<li>Item 56 is the lower-left cell of the board.</li>
+<li>Item 63 is the lower-right cell of the board.</li>
+</ul>
+<p><code>move</code> is an object describing the next move:</p>
+<ul>
+<li><code>player</code>: Either <code>1</code> (black) or <code>2</code> (white)</li>
+<li><code>column</code>: A value from <code>1</code> (leftmost column) to <code>8</code> (rightmost column)</li>
+<li><code>row</code>: A value from <code>1</code> (top column) to <code>8</code> (bottom column)</li>
+</ul>
+<h3 id="output">Output</h3>
+<p>Your output must be a JSON object containing the new board state after applying the player's move; for example:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;board&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">2</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+                <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span>
+             <span class="ot">]</span>
+<span class="fu">}</span></code></pre></div>
+<p><code>board</code>: Same structure as the <code>board</code> array in the input.</p>
+<h2 id="how-to-start">How to Start</h2>
+<p>You can find some starting materials on GitHub. You don't need to be able to run these Python scripts to create your program, but you may find them helpful to verify that your code works.</p>
+<p><a href="https://github.com/WycliffeAssociates/8woc2018_reversi" class="uri">https://github.com/WycliffeAssociates/8woc2018_reversi</a></p>
+<h3 id="teststests.json">tests/tests.json</h3>
+<p>This is a set of tests that will be run against your code. Your code must pass at least these tests. Each test contains an <code>input</code> object that is passed to your program's <code>stdin</code> as JSON, and an <code>expected</code> object that is compared against your program's output to <code>stdout</code>.</p>
+<p>An excerpt from the file containing one test is shown below:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="ot">[</span>
+  <span class="fu">{</span>
+    <span class="dt">&quot;input&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+      <span class="dt">&quot;board&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">2</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">2</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span>
+      <span class="ot">]</span><span class="fu">,</span>
+      <span class="dt">&quot;move&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;player&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span>
+        <span class="dt">&quot;column&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span>
+        <span class="dt">&quot;row&quot;</span><span class="fu">:</span>    <span class="dv">3</span>
+      <span class="fu">}</span>
+    <span class="fu">},</span>
+    <span class="dt">&quot;expected&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+      <span class="dt">&quot;board&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">,</span> <span class="dv">2</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span>
+        <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">0</span>
+      <span class="ot">]</span>
+    <span class="fu">}</span>
+  <span class="fu">}</span><span class="ot">,</span>
+  <span class="er">...</span>
+<span class="ot">]</span></code></pre></div>
+<h3 id="tester.py">tester.py</h3>
+<p>A Python script that runs the tests against an executable. You may find it helpful to run this against your executable to ensure the tests pass. It will print a JSON object containing the result of the test, and return 1 if any of the tests failed.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Run tester</span>
+<span class="ex">./tester.py</span> ./your-executable <span class="op">&gt;</span> test_results.json</code></pre></div>
+<h3 id="example_solution_template.py">example_solution_template.py</h3>
+<p>A sample executable that naively returns the board state it was given. This will fail all tests.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Test naive executable</span>
+<span class="ex">./tester.py</span> ./example_solution_template.py <span class="op">&gt;</span> all_tests_fail.json
+<span class="co"># Print errorlevel of 1 (at least one test failed)</span>
+<span class="bu">echo</span> <span class="va">$?</span> </code></pre></div>

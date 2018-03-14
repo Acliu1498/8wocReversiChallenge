@@ -21,7 +21,7 @@ def main():
     end_state = {'board': board}
 
     # writes the board to the out
-    json.dump(end_state, args.outfile)
+    json.dump(end_state, args.outfile, indent=4)
 
 
 def make_move(move, board):

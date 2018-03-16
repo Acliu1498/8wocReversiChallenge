@@ -57,6 +57,9 @@ def make_move_help(start, board, direction, dir_map, curr, player):
         # moves according to the map
         curr += dir_map[direction]
 
+        if direction in 'L R DL DR UL UR'.split(" ") and (curr % 8 == 0 or curr % 8 == 0):
+            return False
+
         # makes a recursive call and checks if true
         if make_move_help(start, board, direction, dir_map, curr, player):
             # if true sets current value to player

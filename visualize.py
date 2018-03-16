@@ -36,13 +36,7 @@ class reversi:
                         else:
                             self.currPlayer = 1 if self.currPlayer == 2 else 2
                             self.notice = "Player " + str(self.currPlayer) + "'s Turn"
-                else:
-                    if event.type == pygame.K_y:
-                        self.board = json.load(args.infile)
-                        self.draw()
-                        self.winner = ""
-                    elif event.type == pygame.K_n:
-                        play = False
+                            self.end_game()
 
     def check(self):
         """Helper method to check if a move is legal, if so makes move"""
@@ -50,25 +44,25 @@ class reversi:
         # changes actual xy to 2d array xy
         x = int(pos[0] / 100)
         y = int(pos[1] / 100)
-
+        curr = x + (8 * (y % 8))
         # makes a deep copy of board to be mutated
         new_board = copy.deepcopy(self.board)
         sol.make_move({'player': self.currPlayer, 'row': y + 1, 'column': x + 1}, new_board)
 
         # calculates number of differences
         diff = 0
-        for i in range(len(self.board)):
-            if self.board[i] != new_board[i]:
-                diff += 1
+        if self.board[curr] == 0:
+            for i in range(len(self.board)):
+                if self.board[i] != new_board[i]:
+                    diff += 1
 
-        # if differences greater then one then legal move
-        if diff > 1:
-            # sets the old board = to the new board and returns true
-            self.board = new_board
-            self.draw()
-            self.notice = ""
-            self.end_game()
-            return True
+            # if differences greater then one then legal move
+            if diff > 1:
+                # sets the old board = to the new board and returns true
+                self.board = new_board
+                self.draw()
+                self.notice = ""
+                return True
         return False
 
     def draw(self):
@@ -109,7 +103,7 @@ class reversi:
         # goes through the board checking to see if it is full
         for i in range(len(self.board)):
             if self.board[i] == 0:
-                return ""
+                return
             if self.board[i] == 1:
                 player1 += 1
             else:
@@ -117,18 +111,16 @@ class reversi:
         if player1 > player2:
             # if player 1's pieces are greater than 2s p1 wins
             self.notice = 'Player 1 wins \n'
-            self.winner = player1
+            self.winner = 'player1'
         elif player2 > player1:
             # else if player 2's pieces are greater than 1s p2 wins
             self.notice = 'Player 2 wins \n'
-            self.winner = player2
+            self.winner = 'player2'
         else:
             # else its a draw
             self.notice = 'Draw \n'
             self.winner = 'draw'
 
-        # asks user to play again
-        self.notice += 'Play Again? (Y/N)'
         self.draw()
 
 
@@ -141,11 +133,6 @@ def parse_arguments():
                            type=argparse.FileType("r"),
                            default=sys.stdin,
                            help="Filename of JSON file containing board and move, default stdin")
-    argparser.add_argument("--outfile",
-                           nargs="?",
-                           type=argparse.FileType("w"),
-                           default=sys.stdout,
-                           help="Filename of JSON file to write board state to, default stdout")
     return argparser.parse_args()
 
 
